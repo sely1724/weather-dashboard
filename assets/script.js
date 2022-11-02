@@ -4,6 +4,10 @@
 //var citySearched = "input"
 var myKey = "9ee067cb6c60d1cf1d72062b348c22a8"
 var inputEl = $("input");
+var cityNameEl = $("#city-name");
+var currentTempEl = $("#current-temp");
+var currentWindEl = $("#current-wind");
+var currentHumidityEl = $("#current-humidity");
 
 $("button").on("click", function(event){
     event.preventDefault();
@@ -43,16 +47,18 @@ function findFiveDay(data){
 }
 
 function printCurrentWeather(data){
+//hide elements till function is run?
 //var currentWeatherEl = $("#currentWeather");
 var currentTemp = data.list[0].main.temp;
 var cityName = data.city.name;
 var currentWind = data.list[0].wind.speed;
 var currentHumidity = data.list[0].main.humidity;
-console.log("temp:"+currentTemp);
-console.log("city: "+cityName);
-console.log("wind: " + currentWind);
-console.log("humidity: " + currentHumidity);
-
-
-// 
+// console.log("temp:"+currentTemp);
+// console.log("city: "+cityName);
+// console.log("wind: " + currentWind);
+// console.log("humidity: " + currentHumidity);
+cityNameEl.text(cityName);
+currentTempEl.text("Temperature: "+currentTemp); //add degree symbol bootstrap icon? 
+currentWindEl.text("Wind: "+currentWind +"mph");
+currentHumidityEl.text("Humidity: "+currentHumidity+"%");
 }
