@@ -22,32 +22,20 @@ function verifyCityEntered(citySearched){
         .then(function(response) {
         console.log(response);
         if (response.status === 200) {
-        console.log("OK!")
+            console.log("OK!");
         }
         else{
-        alert("Please enter a valid city name")
+            alert("Please enter a valid city name.")
         }
         return response.json();
-        });
-
-
+        })
+        .then(function (data) {
+            console.log(data);
+            //printCityInfo(data);
+            findFiveDay(data);
+        })
 }
 
-
-
-
-// function getApi(requestUrl) {
-//   fetch(requestUrl)
-//     .then(function (response) {
-//       console.log(response);
-//       if (response.status === 200) {
-//         responseText.textContent = response.status;
-//       }
-//       return response.json();
-//   });
-// }
-
-// getApi(requestUrl);
 
 
 
@@ -57,17 +45,18 @@ function verifyCityEntered(citySearched){
 
 //search by city
 //used api.openweathermap.org/data/2.5/forecast?q={city name}&appid={API key}
+function printCityInfo(data){
 
-
-function findCurrentCityTemp(){
 
 }
 
 
 
-function findFiveDay(){
-//var latVal = //
-//var lonVal = //
-var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?lat="+latVal+"&lon="+lonVal+"&appid="+myKey
+function findFiveDay(data){
+var latVal = data.city.coord.lat;
+var lonVal = data.city.coord.lon;
+console.log(latVal);
+console.log(lonVal);
+//var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?lat="+latVal+"&lon="+lonVal+"&appid="+myKey
 
 }
