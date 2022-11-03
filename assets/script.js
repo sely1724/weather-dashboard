@@ -59,11 +59,28 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
         })
         .then(function (data) {
             console.log(data);
+            //print city name here??
+            for(var i = 1; i < 5; i++){
+                var daysTemp = data.daily[i].temp.day;
+                var daysWind = data.daily[i].wind_speed;
+                var daysHumidity = data.daily[i].humidity;
+                var futureWeatherEl = $(".forecast-block"+i);
+                //create element
+                futureWeatherEl.append("<h3>datehold - Temp</h3>");
+                //add image here???
+                futureWeatherEl.append("<p>"+daysTemp+"</p>");
+                futureWeatherEl.append("<p>"+daysWind+"</p>");
+                futureWeatherEl.append("<p>"+daysHumidity+"</p>");
+            }
+
+
+
         })
-//BLOCKER - can't figure out time api.  current weather vs future.
-//NEED A FOR LOOP ONCE TIME IS FIGURED OUT
-//Meantime figure out how to fetch img.  
-//
+
+//NEXT STEPS:
+//1. fetch temperature image.
+//2. fetch date with moment.
+
 }
 
 
