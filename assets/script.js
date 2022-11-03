@@ -32,33 +32,74 @@ function verifyCityEntered(citySearched){
         .then(function (data) {
             console.log(data);
             printCurrentWeather(data);
-            //findFiveDay(data);
+            findFiveDay(data);
         })
 }
 
 
+
 function findFiveDay(data){
+    var data = data;
     var latVal = data.city.coord.lat;
     var lonVal = data.city.coord.lon;
-    console.log(latVal);
-    console.log(lonVal);
-//var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?lat="+latVal+"&lon="+lonVal+"&appid="+myKey
-
+    var fiveDayURL = "https://api.openweathermap.org/data/3.0/onecall?lat="+latVal+"&lon="+lonVal+"&appid="+myKey+"&units=imperial";
+    //"https://api.openweathermap.org/data/2.5/forecast?lat="+latVal+"&lon="+lonVal+"&appid="+myKey+"&units=imperial";
+    printFiveDayWeather(latVal,lonVal,data,fiveDayURL)
+    
 }
 
+function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
+    fetch(fiveDayURL)
+        .then(function(response) {
+        console.log(response);
+        if (response.status === 200) {
+            console.log("OK!");
+        }
+        return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+//BLOCKER - can't figure out time api.  current weather vs future.
+//NEED A FOR LOOP ONCE TIME IS FIGURED OUT
+//Meantime figure out how to fetch img.  
+//
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function printCurrentWeather(data){
+//connect to moment for date???? 
+//add date
 //hide elements till function is run?
-//var currentWeatherEl = $("#currentWeather");
-var currentTemp = data.list[0].main.temp;
-var cityName = data.city.name;
-var currentWind = data.list[0].wind.speed;
-var currentHumidity = data.list[0].main.humidity;
-// console.log("temp:"+currentTemp);
-// console.log("city: "+cityName);
-// console.log("wind: " + currentWind);
-// console.log("humidity: " + currentHumidity);
-cityNameEl.text(cityName);
-currentTempEl.text("Temperature: "+currentTemp); //add degree symbol bootstrap icon? 
-currentWindEl.text("Wind: "+currentWind +"mph");
-currentHumidityEl.text("Humidity: "+currentHumidity+"%");
+//add degree symbol bootstrap icon? 
+    var currentTemp = data.list[0].main.temp;
+    var cityName = data.city.name;
+    var currentWind = data.list[0].wind.speed;
+    var currentHumidity = data.list[0].main.humidity;
+    cityNameEl.text(cityName);
+    currentTempEl.text("Temperature: "+currentTemp); 
+    currentWindEl.text("Wind: "+currentWind +"mph");
+    currentHumidityEl.text("Humidity: "+currentHumidity+"%");
 }
