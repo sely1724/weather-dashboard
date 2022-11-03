@@ -64,11 +64,14 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
                 var daysTemp = data.daily[i].temp.day;
                 var daysWind = data.daily[i].wind_speed;
                 var daysHumidity = data.daily[i].humidity;
+                var daysIconText = data.daily[i].weather[0].icon
+                var daysIconImg = "http://openweathermap.org/img/wn/"+daysIconText+"@2x.png";
                 var futureWeatherEl = $(".forecast-block"+i);
                 //create element
                 futureWeatherEl.append("<h3>datehold - Temp</h3>");
                 //add image here???
                 futureWeatherEl.append("<p>"+daysTemp+"</p>");
+                futureWeatherEl.append("<img src = "+daysIconImg+"></img");
                 futureWeatherEl.append("<p>"+daysWind+"</p>");
                 futureWeatherEl.append("<p>"+daysHumidity+"</p>");
             }
@@ -82,15 +85,6 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
 //2. fetch date with moment.
 
 }
-
-
-
-
-
-
-
-
-
 
 
 
