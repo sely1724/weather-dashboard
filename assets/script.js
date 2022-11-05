@@ -28,7 +28,7 @@ else {
 
 }
 
-$("button").on("click", function(event){
+$("#search-button").on("click", function(event){
     event.preventDefault();
     var citySearched = inputEl.val();
     verifyCityEntered(citySearched);
