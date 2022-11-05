@@ -34,7 +34,15 @@ $("#search-button").on("click", function(event){
     verifyCityEntered(citySearched);
 })
 
-//NEED TO: Add event listener to buttons.  Figure out data part?
+$(savedCityEl).on("click", function(event){
+    event.preventDefault();
+    var cityChosen = $(event.target).text();
+    //would be cool to see it entered into input
+    verifyCityEntered(cityChosen); //don't love it going through this route again.  Not necessary to verify right? 
+})
+
+
+
 
 
 
