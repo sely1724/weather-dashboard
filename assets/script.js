@@ -8,11 +8,14 @@ var todaysDate = time.format("MMMM Do, YYYY");
 var inputEl = $("input");
 var cityNameEl = $(".city-name");
 var cityFiveDayEl = $("#city-name-five");
+var savedCityEl = $("#list-city-searches");
 var currentTempEl = $("#current-temp");
 var currentWindEl = $("#current-wind");
 var currentHumidityEl = $("#current-humidity");
 var todaysDateEl = $("#today");
-var weatherIconEl = $("#weather-icon")
+var weatherIconEl = $("#weather-icon");
+var searchHistory = [];
+
 
 
 $("button").on("click", function(event){
@@ -36,11 +39,31 @@ function verifyCityEntered(citySearched){
         return response.json();
         })
         .then(function (data) {
-            console.log(data);
+            storeCitySearched(citySearched);//store city searched in local storage from here 
+            //do we need to store data too?
             printCurrentWeather(data);
             findFiveDay(data);
         })
 }
+
+
+
+function storeCitySearched(citySearched){
+    if(!searchHistory.includes(citySearched)){
+        searchHistory.push(citySearched)
+        console.log(searchHistory)
+}
+
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -78,36 +101,20 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
                 futureWeatherEl.append("<p> Temperature: "+daysTemp+" degrees</p>");
                 futureWeatherEl.append("<p>Wind Speed: "+daysWind+"mph</p>");
                 futureWeatherEl.append("<p>Humidity: "+daysHumidity+"%</p>");
+                //add each to array as an object? 
             }
-
-
-
         })
-
-//NEXT STEPS:
-//1. fetch date with moment.
-
 }
 
 
 
-
-
-
-
-
 function printCurrentWeather(data){
-//connect to moment for date???? 
-//add date
 //hide elements till function is run?
 //add degree symbol bootstrap icon? 
     var currentTemp = data.list[0].main.temp;
     var cityName = data.city.name;
     var currentWind = data.list[0].wind.speed;
     var currentHumidity = data.list[0].main.humidity;
-
-
-
     var daysIconText = data.list[0].weather[0].icon;
     var daysIconImg = "http://openweathermap.org/img/wn/"+daysIconText+"@2x.png";
     cityNameEl.text(cityName);
@@ -119,3 +126,7 @@ function printCurrentWeather(data){
     currentWindEl.text("Wind Speed: "+currentWind +"mph");
     currentHumidityEl.text("Humidity: "+currentHumidity+"%");
 }
+
+// function saveCity(){
+
+// }
