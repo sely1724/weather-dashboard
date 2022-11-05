@@ -1,22 +1,20 @@
-//figure out city API
-//input.val() ???
-//search suggestions
-//var citySearched = "input"
 var myKey = "9ee067cb6c60d1cf1d72062b348c22a8"
 var time = moment();
 var todaysDate = time.format("MMMM Do, YYYY");
 var inputEl = $("input");
 var cityNameEl = $(".city-name");
 var cityFiveDayEl = $("#city-name-five");
+var historySectionEl = $("#history-section")
 var savedCityEl = $("#list-city-searches");
 var currentTempEl = $("#current-temp");
 var currentWindEl = $("#current-wind");
 var currentHumidityEl = $("#current-humidity");
 var todaysDateEl = $("#today");
 var weatherIconEl = $("#weather-icon");
-var searchHistory = [];
+var searchHistory = JSON.parse(localStorage.getItem("search-history"))||[];
 
 
+initialPrintCitySearched();
 
 $("button").on("click", function(event){
     event.preventDefault();
@@ -32,6 +30,7 @@ function verifyCityEntered(citySearched){
         console.log(response);
         if (response.status === 200) {
             console.log("OK!");
+            storeCitySearched(citySearched);
         }
         else{
             alert("Please enter a valid city name.")
@@ -39,7 +38,10 @@ function verifyCityEntered(citySearched){
         return response.json();
         })
         .then(function (data) {
-            storeCitySearched(citySearched);//store city searched in local storage from here 
+            //if (city searched != one thats already printed){
+                //addtoCitySearched(citySearched)   notes: diff from printSearchHistory
+            //}
+        //store city searched in local storage from here 
             //do we need to store data too?
             printCurrentWeather(data);
             findFiveDay(data);
@@ -47,12 +49,30 @@ function verifyCityEntered(citySearched){
 }
 
 
+function initialPrintCitySearched(citySearched){
+    var historyHeaderElement = $("<h3>").text("Search History");//figure out how to stop repeating this multiple times
+    historySectionEl.append(historyHeaderElement);
+
+    if(searchHistory.length >= 1){
+        for(var i = 0; i<searchHistory.length; i++){
+            var listElement = $("<li>").text(searchHistory[i]);
+            savedCityEl.append(listElement)
+        }
+    }
+}
+
 
 function storeCitySearched(citySearched){
+    if(searchHistory.length == 0){//figure out how to print out
+        var historyHeaderElement = $("<h3>").text("Search History"); 
+        historySectionEl.append(historyHeaderElement);
+    }
     if(!searchHistory.includes(citySearched)){
-        searchHistory.push(citySearched)
-        console.log(searchHistory)
-}
+        searchHistory.push(citySearched);
+        var listElement = $("<li>").addClass(citySearched).text(citySearched);
+        savedCityEl.append(listElement);
+        localStorage.setItem("search-history",JSON.stringify(searchHistory));
+    }
 
 }
 
