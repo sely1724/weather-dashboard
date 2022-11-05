@@ -11,12 +11,12 @@ var currentWindEl = $("#current-wind");
 var currentHumidityEl = $("#current-humidity");
 var todaysDateEl = $("#today");
 var weatherIconEl = $("#weather-icon");
+var searchHistory = JSON.parse(localStorage.getItem("search-history"))||[];
 
 
 init()
 
 function init(){
-var searchHistory = JSON.parse(localStorage.getItem("search-history"))||[];
 if (searchHistory == null) {
     return;
 }
@@ -33,6 +33,10 @@ $("#search-button").on("click", function(event){
     var citySearched = inputEl.val();
     verifyCityEntered(citySearched);
 })
+
+//NEED TO: Add event listener to buttons.  Figure out data part?
+
+
 
 function verifyCityEntered(citySearched){
     var citySearchedURL = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearched+"&appid="+myKey+"&units=imperial";
@@ -60,11 +64,10 @@ function verifyCityEntered(citySearched){
 }
 
 
-function initialPrintCitySearched(citySearched){
+function initialPrintCitySearched(){
+    if(searchHistory.length >= 1){
     var historyHeaderElement = $("<h3>").text("Search History");//figure out how to stop repeating this multiple times
     historySectionEl.append(historyHeaderElement);
-
-    if(searchHistory.length >= 1){
         for(var i = 0; i<searchHistory.length; i++){
             var listElement = $("<button>").text(searchHistory[i]);//readme shows button NOT li
             savedCityEl.append(listElement)
@@ -83,11 +86,13 @@ function storeCitySearched(citySearched){
     }
     if(!searchHistory.includes(citySearched)){
         searchHistory.push(citySearched);
-        var listElement = $("<li>").addClass(citySearched).text(citySearched);
+        var listElement = $("<button>").text(citySearched);//likely need to add class here to listen for clicks
         savedCityEl.append(listElement);
-        localStorage.setItem("search-history",JSON.stringify(searchHistory));
+        localStorage.setItem("search-history",JSON.stringify(searchHistory)); //should this be moved outside if statement or stay in? Does it matter?
     }
-
+    else{
+        return;
+    }
 }
 
 
@@ -102,7 +107,10 @@ function storeCitySearched(citySearched){
 
 
 function findFiveDay(data){
-    var data = data;
+    //var data = data; 
+    //really don't think that's necessary ^^^
+
+    //do I need to empty out what's currently there? 
     var latVal = data.city.coord.lat;
     var lonVal = data.city.coord.lon;
     var fiveDayURL = "https://api.openweathermap.org/data/3.0/onecall?lat="+latVal+"&lon="+lonVal+"&appid="+myKey+"&units=imperial";
@@ -120,15 +128,17 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
         return response.json();
         })
         .then(function (data) {
-            console.log(data);            
+            console.log(data);  
+            //should I move header located in "current day section" to here? 
+
             for(var i = 1; i < 5; i++){
+                var futureWeatherEl = $(".forecast-block"+i);
                 var daysTemp = data.daily[i].temp.day;
                 var daysWind = data.daily[i].wind_speed;
                 var daysHumidity = data.daily[i].humidity;
                 var futureDate = time.add(1, 'days').format("MMMM Do, YYYY");
                 var daysIconText = data.daily[i].weather[0].icon
                 var daysIconImg = "http://openweathermap.org/img/wn/"+daysIconText+"@2x.png";
-                var futureWeatherEl = $(".forecast-block"+i);
                 //create five day elements
                 futureWeatherEl.append("<h4>"+futureDate+"</h4>");
                 futureWeatherEl.append("<img src = "+daysIconImg+"></img");
@@ -146,7 +156,7 @@ function printCurrentWeather(data){
 //hide elements till function is run?
 //add degree symbol bootstrap icon? 
 
-//TO DO: ADD CLEAR LAST ICON
+//TO DO: ADD CLEAR LAST ICON - maybe add class to icon and then root into it and clear it before we create a new one?
     var currentTemp = data.list[0].main.temp;
     var cityName = data.city.name;
     var currentWind = data.list[0].wind.speed;
