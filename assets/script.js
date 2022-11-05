@@ -11,10 +11,22 @@ var currentWindEl = $("#current-wind");
 var currentHumidityEl = $("#current-humidity");
 var todaysDateEl = $("#today");
 var weatherIconEl = $("#weather-icon");
+
+
+init()
+
+function init(){
 var searchHistory = JSON.parse(localStorage.getItem("search-history"))||[];
+if (searchHistory == null) {
+    return;
+}
+else {
+    initialPrintCitySearched();
+}
 
 
-initialPrintCitySearched();
+
+}
 
 $("button").on("click", function(event){
     event.preventDefault();
@@ -40,8 +52,7 @@ function verifyCityEntered(citySearched){
         .then(function (data) {
             //if (city searched != one thats already printed){
                 //addtoCitySearched(citySearched)   notes: diff from printSearchHistory
-            //}
-        //store city searched in local storage from here 
+            //} 
             //do we need to store data too?
             printCurrentWeather(data);
             findFiveDay(data);
@@ -55,11 +66,14 @@ function initialPrintCitySearched(citySearched){
 
     if(searchHistory.length >= 1){
         for(var i = 0; i<searchHistory.length; i++){
-            var listElement = $("<li>").text(searchHistory[i]);
+            var listElement = $("<button>").text(searchHistory[i]);//readme shows button NOT li
             savedCityEl.append(listElement)
         }
     }
 }
+
+
+
 
 
 function storeCitySearched(citySearched){
@@ -131,6 +145,8 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
 function printCurrentWeather(data){
 //hide elements till function is run?
 //add degree symbol bootstrap icon? 
+
+//TO DO: ADD CLEAR LAST ICON
     var currentTemp = data.list[0].main.temp;
     var cityName = data.city.name;
     var currentWind = data.list[0].wind.speed;
@@ -147,6 +163,3 @@ function printCurrentWeather(data){
     currentHumidityEl.text("Humidity: "+currentHumidity+"%");
 }
 
-// function saveCity(){
-
-// }
