@@ -21,6 +21,7 @@
     padding: 15px;
   }
 
+
   .main-row{
     display: flex;
     flex-direction: row;
@@ -54,6 +55,22 @@
     justify-content: left;
   }
 
+  img{
+    max-width: 40px;
+
+  }
+
+  #forecast-blocks{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+  }
+
+  .future-date{
+    font-size: 16px;
+  }
+
+ 
 
   #currentWeather{
     display: flex;
@@ -62,7 +79,6 @@
   }
   #city-name-five{
     display:flex;
-
   }
 
 

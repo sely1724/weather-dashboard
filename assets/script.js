@@ -1,6 +1,6 @@
 var myKey = "9ee067cb6c60d1cf1d72062b348c22a8"
 var time = moment();
-var todaysDate = time.format("[(] L [)]");
+var todaysDate = time.format("[(]L[)]");
 var inputEl = $("input");
 var cityNameEl = $(".city-name");
 var cityFiveDayEl = $("#city-name-five");
@@ -127,19 +127,30 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
         .then(function (data) {
             console.log(data);  
             for(var i = 1; i < 6; i++){
-                var futureWeatherEl = $(".forecast-block"+i);
-                var daysTemp = data.daily[i].temp.day;
-                var daysWind = data.daily[i].wind_speed;
-                var daysHumidity = data.daily[i].humidity;
-                var futureDate = time.add(1, 'days').format("MMMM Do, YYYY");
+                var futureWeatherEl = $(".forecast-block"+i).addClass("col border");
+                var daysTemp = $("<p>").text("Temp: "+data.daily[i].temp.day+ " degrees F");
+                var daysWind = $("<p>").text("Wind: "+data.daily[i].wind_speed+ " mph");
+                var daysHumidity = $("<p>").text("Humidity: "+data.daily[i].humidity+ "%");
+                var futureDate = $("<p class = future-date>").text(time.add(1, 'days').format("[(]L[)]"));
                 var daysIconText = data.daily[i].weather[0].icon
-                var daysIconImg = "http://openweathermap.org/img/wn/"+daysIconText+"@2x.png";
+                var daysIconLink = "http://openweathermap.org/img/wn/"+daysIconText+"@2x.png";
+                var daysIconImg = $("<img>").attr("src", daysIconLink);
                 //create five day elements
-                futureWeatherEl.append("<h4>"+futureDate+"</h4>");
-                futureWeatherEl.append("<img src = "+daysIconImg+"></img");
-                futureWeatherEl.append("<p> Temperature: "+daysTemp+" degrees</p>");
-                futureWeatherEl.append("<p>Wind Speed: "+daysWind+"mph</p>");
-                futureWeatherEl.append("<p>Humidity: "+daysHumidity+"%</p>");
+               
+                futureWeatherEl.append(futureDate);
+                futureWeatherEl.append(daysIconImg);
+                futureWeatherEl.append(daysTemp);
+                futureWeatherEl.append(daysWind);
+                futureWeatherEl.append(daysHumidity);
+
+
+
+
+
+
+
+
+               
             }
         })
 }
