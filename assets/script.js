@@ -1,6 +1,6 @@
 var myKey = "9ee067cb6c60d1cf1d72062b348c22a8"
 var time = moment();
-var todaysDate = time.format("MMMM Do, YYYY");
+var todaysDate = time.format("[(] L [)]");
 var inputEl = $("input");
 var cityNameEl = $(".city-name");
 var cityFiveDayEl = $("#city-name-five");
@@ -126,7 +126,7 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
         })
         .then(function (data) {
             console.log(data);  
-            for(var i = 1; i < 5; i++){
+            for(var i = 1; i < 6; i++){
                 var futureWeatherEl = $(".forecast-block"+i);
                 var daysTemp = data.daily[i].temp.day;
                 var daysWind = data.daily[i].wind_speed;
@@ -147,7 +147,6 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
 
 
 function printCurrentWeather(data){
-    currWeatherPrintEl.empty();
     var currentTemp = data.list[0].main.temp;
     var cityName = data.city.name;
     var currentWind = data.list[0].wind.speed;
@@ -155,7 +154,7 @@ function printCurrentWeather(data){
     var daysIconText = data.list[0].weather[0].icon;
     var daysIconImg = "http://openweathermap.org/img/wn/"+daysIconText+"@2x.png";
     cityNameEl.text(cityName);
-    cityFiveDayEl.text(cityName+"'s Five Day Forecast")
+    cityFiveDayEl.text("5-Day Forecast")
     console.log(todaysDate)
     todaysDateEl.text(todaysDate);
     weatherIconEl.append("<img class = weather-icon-class src = "+daysIconImg+"></img");

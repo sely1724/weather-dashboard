@@ -43,10 +43,25 @@
     align-items: center;
   }
 
-  #currentWeather{
+  .curr-weather-row{
     display: flex;
     flex-direction: column;
+  }
+
+  .curr-weather-header{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+  }
+
+
+  #currentWeather{
+    display: flex;
+    flex-direction: row;
     align-items: center;
+  }
+  #city-name-five{
+    display:flex;
 
   }
 
