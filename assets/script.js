@@ -1,6 +1,9 @@
+//personal key for open weather api 
 var myKey = "9ee067cb6c60d1cf1d72062b348c22a8"
+//get curr time
 var time = moment();
 var todaysDate = time.format("[(]L[)]");
+//root into html elements
 var inputEl = $("input");
 var cityNameEl = $(".city-name");
 var cityFiveDayEl = $("#city-name-five");
@@ -13,36 +16,37 @@ var todaysDateEl = $("#today");
 var currWeatherPrintEl = $(".curr-weather-col");
 var futureWeatherPrintEl = $(".future-forecast-col");
 var weatherIconEl = $("#weather-icon");
+//create array to store saved searches
 var searchHistory = JSON.parse(localStorage.getItem("search-history"))||[];
 
-
+//call initialize function.  if past searches aren't null, they will load on page load
 init();
 
-function init(){
-if (searchHistory == null) {
-    return;
-}
-else {
-    initialPrintCitySearched();
-}
-
-
-
-}
-
+//listen for clicks on search button. calls function that will take input val and insert into api url
 $("#search-button").on("click", function(event){
     event.preventDefault();
     var citySearched = inputEl.val();
     verifyCityEntered(citySearched);
 })
 
+//listen for clicks on saved cities.  if a city is selected, that specific city name will be inserted into api url
 $(savedCityEl).on("click", function(event){
     event.preventDefault();
     var cityChosen = $(event.target).text();
     verifyCityEntered(cityChosen);
 })
 
+//initialize function
+function init(){
+    if (searchHistory == null) {
+        return;
+    }
+    else {
+        initialPrintCitySearched()
+    }
+}
 
+//city searched value comes from clicks.  takes city name input, runs through url, and runs functions if city exists. 
 function verifyCityEntered(citySearched){
     var citySearchedURL = "https://api.openweathermap.org/data/2.5/forecast?q="+citySearched+"&appid="+myKey+"&units=imperial";
     console.log(citySearchedURL)
@@ -59,12 +63,14 @@ function verifyCityEntered(citySearched){
         return response.json();
         })
         .then(function (data) {
+            //calls function to print current weather information
             printCurrentWeather(data);
+            //calls funtion to find 5-day weather
             findFiveDay(data);
         })
 }
 
-
+//function prints out initial search history upon page load.
 function initialPrintCitySearched(){
     if(searchHistory.length >= 1){
     var historyHeaderElement = $("<h4>").addClass("search-prompt").text("Search History:");//figure out how to stop repeating this multiple times
@@ -75,11 +81,7 @@ function initialPrintCitySearched(){
         }
     }
 }
-
-
-
-
-
+//function takes a new searched city.  It prints it out to search history and stores name to local storage array.  
 function storeCitySearched(citySearched){
     if(searchHistory.length == 0){
         var historyHeaderElement = $("<h4>").addClass("search-prompt").text("Search History:"); 
@@ -87,26 +89,15 @@ function storeCitySearched(citySearched){
     }
     if(!searchHistory.includes(citySearched)){
         searchHistory.push(citySearched);
-        var listElement = $("<button>").addClass("btn btn-sm btn-block btn-outline-primary").text(citySearched);//likely need to add class here to listen for clicks
+        var listElement = $("<button>").addClass("btn btn-sm btn-block btn-outline-primary").text(citySearched);
         savedCityEl.append(listElement);
-        localStorage.setItem("search-history",JSON.stringify(searchHistory)); //should this be moved outside if statement or stay in? Does it matter?
+        localStorage.setItem("search-history",JSON.stringify(searchHistory));
     }
     else{
         return;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
+//function uses city name/data from curr weather search to find 5-day weather information
 function findFiveDay(data){
     var latVal = data.city.coord.lat;
     var lonVal = data.city.coord.lon;
@@ -114,7 +105,7 @@ function findFiveDay(data){
     printFiveDayWeather(latVal,lonVal,data,fiveDayURL)
     
 }
-
+//function prints out 5-day forecast to screen
 function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
     fetch(fiveDayURL)
         .then(function(response) {
@@ -141,22 +132,11 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
                 futureWeatherEl.append(daysIconImg);
                 futureWeatherEl.append(daysTemp);
                 futureWeatherEl.append(daysWind);
-                futureWeatherEl.append(daysHumidity);
-
-
-
-
-
-
-
-
-               
+                futureWeatherEl.append(daysHumidity);     
             }
         })
 }
-
-
-
+//function prints out current weather information
 function printCurrentWeather(data){
     var currentTemp = data.list[0].main.temp;
     var cityName = data.city.name;

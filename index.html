@@ -5,9 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Weather Dashboard</title>
-  <!--fonts-->
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400&family=Merriweather:wght@700&display=swap" 
-    rel="stylesheet" />
+
   <!--css connect-->
   <link rel="stylesheet" href="./assets/style.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
@@ -27,122 +25,70 @@
 
 <!--container for whole page start-->
 <section class = "container-fluid">
-
-    <!--row left start-->
     <div class = "row main-row">
-
-
-<!--search tool-->
-
+        <!--start search tool-->
         <div class = "col-3">
-
             <div class = "container-fluid">
                 <div class = "row search-row">
-              <div class = "col p-0 enter-city-div">     
-            <h4 class = "search-prompt mt-3">Enter City:</h4>
-            <form>
-            <input type="text" name="input" placeholder="Seattle" class = "form-control"/> 
-            <button id = "search-button" class = "btn btn-sm btn-block btn-outline-primary mb-3">Search</button>
-
-         </form></div> 
-        
-
-        
-    <div id = "history-section"></div>
-    <ul id = "list-city-searches" class = "list-unstyled">
-
-    </ul>
-</div>
-    <!-- add elements for each search -->
-</div>
-</div>
-
-
-
- <!--row left end-->
-
-
-
- <!--row right start-->
-
-
-    <div class = "col-lg-9">
-
-        
-        
-        <div class = "container">
-            <div class = "row search-row">
-
-        <div class = "col-lg-12 col-sm-6 curr-weather-col">
-<!--display current weather results-->
-
-<div class = container-fluid>
-    <div class = "row curr-weather-row border">
-        <div class = "col-lg-6 curr-weather-header">
-<div id = "currentWeather">
-    <h2 class="city-name"></h2>  </br><h4 id="today"></h4><div id = "weather-icon"></div>
-</div></div>
-<div class = "col-lg-6">
-   
-    
-    <p class="temp" id="current-temp"></p>
-    <p class="wind" id="current-wind"></p>
-    <p class="humidity" id="current-humidity"></p>
-</div>
-</div>
-</div>
-</div>
-
-
-<!--display 5 day forecast-->
-<div class = "col col-lg-auto col-md-auto col-sm-auto future-forecast-col">
-<div id="future-forecast">
-   
-    <h2 id="city-name-five"></h2>
-
-    <div class = "container-fluid">
-        <div class = "row" id = "forecast-blocks">
-            
-        <div class="forecast-block1">
+                    <div class = "col p-0 enter-city-div">     
+                        <h4 class = "search-prompt mt-3">Enter City:</h4>
+                            <form>
+                                <input type="text" name="input" placeholder="Seattle" class = "form-control"/> 
+                                    <button id = "search-button" class = "btn btn-sm btn-block btn-outline-primary mb-3">Search</button>
+                            </form>
+                    </div> 
+                        <!--store past city searches here-->
+                        <div id = "history-section"></div>
+                            <ul id = "list-city-searches" class = "list-unstyled"><!-- li's go here. created via js --></ul>
+                </div>
+            </div>
         </div>
-
-        <div class = "forecast-block2">
+        <div class = "col-lg-9">
+            <div class = "container">
+                <div class = "row search-row">
+                    <div class = "col-lg-12 col-sm-6 curr-weather-col">
+                        <!--create container that stores current weather results-->
+                        <div class = container-fluid>
+                            <div class = "row curr-weather-row border">
+                                <div class = "col-lg-6 curr-weather-header">
+                                    <div id = "currentWeather">
+                                        <h2 class="city-name"></h2> </br>
+                                        <h4 id="today"></h4>
+                                        <div id = "weather-icon"></div>
+                                    </div>
+                                </div>
+                                <div class = "col-lg-6">
+                                    <p class="temp" id="current-temp"></p>
+                                    <p class="wind" id="current-wind"></p>
+                                    <p class="humidity" id="current-humidity"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class = "col col-lg-auto col-md-auto col-sm-auto future-forecast-col">
+                        <div id="future-forecast">
+                            <h2 id="city-name-five"></h2>
+                                <!--create container that stores 5 day weather results-->
+                                <div class = "container-fluid">
+                                    <div class = "row" id = "forecast-blocks">
+                                        <div class="forecast-block1"></div>
+                                        <div class = "forecast-block2"></div>
+                                        <div class = "forecast-block3"></div>
+                                        <div class = "forecast-block4"></div> 
+                                        <div class = "forecast-block5"></div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class = "forecast-block3">
-        </div>
-
-        <div class = "forecast-block4">
-        </div>
-
-        <div class = "forecast-block5">
-        </div>
-
     </div>
-</div>
-</div>
-    </div>
-    
-    </div>
-</div>
-</div>
-</div>
-
-
-
- <!--row right end-->
-
-
-
 <!--container for whole page end-->
 </section>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="./assets/script.js"></script>
-  
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="./assets/script.js"></script>
   
 </body>
-
 </html>
