@@ -105,6 +105,7 @@ function findFiveDay(data){
     printFiveDayWeather(latVal,lonVal,data,fiveDayURL)
     
 }
+
 //function prints out 5-day forecast to screen
 function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
     fetch(fiveDayURL)
@@ -116,8 +117,10 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
         return response.json();
         })
         .then(function (data) {
-            console.log(data);  
+            console.log(data);
+              
             for(var i = 1; i < 6; i++){
+                $(".forecast-block"+i).empty()
                 var futureWeatherEl = $(".forecast-block"+i).addClass("col-lg-auto col-md-auto col-sm-auto border mb-1");
                 var daysTemp = $("<p>").text("Temp: "+data.daily[i].temp.day+ " degrees F");
                 var daysWind = $("<p>").text("Wind: "+data.daily[i].wind_speed+ " mph");
@@ -138,6 +141,7 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
 }
 //function prints out current weather information
 function printCurrentWeather(data){
+    weatherIconEl.empty();
     var currentTemp = data.list[0].main.temp;
     var cityName = data.city.name;
     var currentWind = data.list[0].wind.speed;
