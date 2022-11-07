@@ -1,55 +1,23 @@
-# weather-dashboard
+# Weather Dashboard
 
+## Description
+This application has a form input that captures the name of a city entered by a user.  It takes the value entered by users and uses the OpenWeather API to retrieve data about the entered city's weather.  If the city entered doesn't exist, the user is alerted to enter a correct city name.  If the city does exist, the application then prints out the city's current weather as well as the five day forecast.  It then stores the city name in local storage and also prints out the stored city name below the search bar so a user can click on it again and have that city's weather information reload on the page.  
 
-## Your Task
+## Installation
+NA
 
+## Usage
+This application is built with travelers in mind so that they can quickly look up their destinations and plan a trip accordingly.  Their past lookups are stored locally so that travelers can easily click on their destinations to find weather information.
 
+## Credits
+NA
 
-You will use `localStorage` to store any persistent data. For more information on how to work with the OpenWeather API, refer to the [Full-Stack Blog on how to use API keys](https://coding-boot-camp.github.io/full-stack/apis/how-to-use-api-keys).
+## License
 
+Please refer to the LICENSE in the repo.
 
+## Screenshots
+<img src= "./assets/weather-dashboard.png"/>
 
-
-## Acceptance Criteria
-
-```
-GIVEN a weather dashboard with form inputs
-WHEN I search for a city
-City is added to the search history
-
-
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
-```
-
-## Mock-Up
-
-The following image shows the web application's appearance and functionality:
-
-![The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for Atlanta.](./Assets/06-server-side-apis-homework-demo.png)
-
-## Grading Requirements
-
-
-
-### Technical Acceptance Criteria: 40%
-
-* Satisfies all of the above acceptance criteria plus the following:
-
-    * Uses the OpenWeather API to retrieve weather data.
-
-    * Uses `localStorage` to store persistent data.
-
-
-
-
-## Review
-
-You are required to submit BOTH of the following for review:
-
-* The URL of the functional, deployed application.
-
-* The URL of the GitHub repository. Give the repository a unique name and include a readme describing the project.
-
-- - -
-© 2022 Trilogy Education Services, LLC, a 2U, Inc. brand. Confidential and Proprietary. All Rights Reserved.
+## Link to Deployed Website
+[Link](https://sely1724.github.io/weather-dashboard/)
