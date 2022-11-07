@@ -127,7 +127,7 @@ function printFiveDayWeather(latVal,lonVal,data,fiveDayURL){
         .then(function (data) {
             console.log(data);  
             for(var i = 1; i < 6; i++){
-                var futureWeatherEl = $(".forecast-block"+i).addClass("col border");
+                var futureWeatherEl = $(".forecast-block"+i).addClass("col-lg-auto col-md-auto col-sm-auto border mb-1");
                 var daysTemp = $("<p>").text("Temp: "+data.daily[i].temp.day+ " degrees F");
                 var daysWind = $("<p>").text("Wind: "+data.daily[i].wind_speed+ " mph");
                 var daysHumidity = $("<p>").text("Humidity: "+data.daily[i].humidity+ "%");
